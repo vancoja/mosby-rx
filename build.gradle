@@ -1,0 +1,74 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+ext {
+    buildToolsVersion               = "22.0.1"
+    compileSdkVersion               = 22
+    defaultMinSdkVersion            = 19
+    defaultTargetSdkVersion         = 22
+
+    // APP
+    android_support_version         = "22.2.0"
+    android_support_design_version  = "22.2.0"
+    butterknife_version             = "6.1.0"
+    dagger_version                  = "2.0.1"
+    icepick_version                 = "3.1.0"
+    javax_inject_annotation_version = "10.0-b28"    // needed for Dagger
+    mosby_version                   = "1.1.0"
+    retrofit_version                = "1.9.0"
+    rxandroid_version               = "0.24.0"
+    rxjava_version                  = "1.0.8"
+    timber_version                  = "2.5.0"
+
+    // TEST
+    junit_version                   = "4.11"
+    mockito_version                 = "1.10.19"
+}
+
+ext.libraries = [
+        // APP
+        android_support         : "com.android.support:support-v4:$android_support_version",
+        android_support_v7      : "com.android.support:appcompat-v7:$android_support_version",
+        android_support_design  : "com.android.support:design:$android_support_design_version",
+        android_support_rclrv   : "com.android.support:recyclerview-v7:$android_support_version",
+        butterknife             : "com.jakewharton:butterknife:$butterknife_version",
+        dagger                  : "com.google.dagger:dagger:$dagger_version",
+        icepick                 : "frankiesardo:icepick:$icepick_version",
+        javax_inject            : "org.glassfish:javax.annotation:$javax_inject_annotation_version",
+        mosby_core              : "com.hannesdorfmann.mosby:core:$mosby_version",
+        mosby_mvp               : "com.hannesdorfmann.mosby:mvp:$mosby_version",
+        retrofit                : "com.squareup.retrofit:retrofit:$retrofit_version",
+        rxandroid               : "io.reactivex:rxandroid:$rxandroid_version",
+        rxjava                  : "io.reactivex:rxjava:$rxjava_version",
+        timber                  : "com.jakewharton.timber:timber:$timber_version",
+
+        dagger_compiler         : "com.google.dagger:dagger-compiler:$dagger_version",
+        icepick_processor       : "frankiesardo:icepick-processor:$icepick_version",
+
+        // TEST
+        junit                   : dependencies.create("junit:junit:$junit_version"),
+        mockito                 : dependencies.create("org.mockito:mockito-core:$mockito_version"){
+                                  exclude group: 'org.hamcrest' }
+]
+
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.3.0'
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        maven {
+            url 'repository'
+        }
+        maven {
+            url "https://clojars.org/repo/"         // needed for IcePick
+        }
+    }
+}

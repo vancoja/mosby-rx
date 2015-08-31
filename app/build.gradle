@@ -1,0 +1,69 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+
+def versionMajor = 0    // production major
+def versionMinor = 2    // production minor
+def versionPatch = 2    // bugfix release
+def versionBuild = 0    // alpha / beta / release candidate
+def jenkinsBuild = System.getenv("BUILD_NUMBER") ?: "666" // Jenkins Build number if available
+def buildTime = new Date().format("dd-MM-yyyy'T'HH:mm'Z'", TimeZone.getTimeZone("UTC"))
+
+android {
+    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdkVersion rootProject.ext.compileSdkVersion
+
+    defaultConfig {
+        applicationId "be.appfoundry.mosbyrx"
+
+        minSdkVersion rootProject.ext.defaultMinSdkVersion
+        targetSdkVersion rootProject.ext.defaultTargetSdkVersion
+        versionCode buildVersionCode(versionMajor, versionMinor, versionPatch, versionBuild)
+        versionName buildVersionName(versionMajor, versionMinor, versionPatch)
+
+        buildConfigField "String", "APP_VERSION", buildVersionLabel(versionMajor, versionMinor, versionPatch, jenkinsBuild)
+    }
+
+    packagingOptions {
+        exclude 'LICENSE.txt'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+        exclude 'LICENSE'
+        exclude 'NOTICE'
+        exclude 'asm-license.txt'
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile rootProject.ext.libraries.android_support_v7
+    compile rootProject.ext.libraries.android_support_design
+    compile rootProject.ext.libraries.android_support_rclrv
+    compile rootProject.ext.libraries.butterknife
+    compile rootProject.ext.libraries.dagger
+    apt rootProject.ext.libraries.dagger_compiler
+    compile rootProject.ext.libraries.icepick
+    apt rootProject.ext.libraries.icepick_processor
+    compile rootProject.ext.libraries.javax_inject
+    compile rootProject.ext.libraries.mosby_core
+    compile rootProject.ext.libraries.mosby_mvp
+    compile rootProject.ext.libraries.retrofit
+    compile rootProject.ext.libraries.rxandroid
+    compile rootProject.ext.libraries.rxjava
+    compile rootProject.ext.libraries.timber
+
+    testCompile rootProject.ext.libraries.junit
+    testCompile rootProject.ext.libraries.mockito
+}
+
+def buildVersionName(versionMajor, versionMinor, versionPatch) {
+    return "${versionMajor}.${versionMinor}.${versionPatch}"
+}
+
+def buildVersionCode(versionMajor, versionMinor, versionPatch, versionBuild) {
+    return versionMajor * 1000 + versionMinor * 100 + versionPatch * 10 + versionBuild
+}
+
+def buildVersionLabel(versionMajor, versionMinor, versionPatch, jenkinsBuild) {
+    return "\"${versionMajor}.${versionMinor}.${versionPatch} (build ${jenkinsBuild})\""
+}
