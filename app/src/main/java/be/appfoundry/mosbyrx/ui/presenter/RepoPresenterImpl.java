@@ -8,7 +8,7 @@ import be.appfoundry.mvp.mosby.BaseRxPresenter;
 import be.appfoundry.mosbyrx.data.entity.GitHubRepo;
 import be.appfoundry.mosbyrx.data.service.GitHubAPI;
 import be.appfoundry.mosbyrx.ui.view.repo.RepoView;
-import be.appfoundry.mvp.mosby.retrofit.SaferCallback;
+import be.appfoundry.mvp.mosby.retrofit.SafeCallback;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -84,7 +84,7 @@ public class RepoPresenterImpl
     @Override
     public void loadRepoListLessDangerous() {
         Timber.i("Start Call");
-        gitHubAPI.getRepos(new SaferCallback<List<GitHubRepo>>() {
+        gitHubAPI.getRepos(new SafeCallback<List<GitHubRepo>>() {
             @Override
             public void safeSuccess(List<GitHubRepo> gitHubRepos, Response response) {
                 Timber.i("Less Dangerous Success Callback, Result = %d items", gitHubRepos.size());

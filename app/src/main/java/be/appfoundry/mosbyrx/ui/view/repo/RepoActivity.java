@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -118,6 +119,7 @@ public class RepoActivity
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
     void loadData(boolean isRefresh) {
+        Toast.makeText(this, "RxPresenter", Toast.LENGTH_LONG).show();
         getPresenter().loadRepoList();
         if (!isRefresh) {
             contentView.setRefreshing(true);
@@ -125,6 +127,7 @@ public class RepoActivity
     }
 
     void loadDataDangerously(boolean isRefresh) {
+        Toast.makeText(this, "Unprotected Callback", Toast.LENGTH_LONG).show();
         getPresenter().loadRepoListDangerous();
         if (!isRefresh) {
             contentView.setRefreshing(true);
@@ -132,6 +135,7 @@ public class RepoActivity
     }
 
     void loadDataLessDangerously(boolean isRefresh) {
+        Toast.makeText(this, "Safeguarded Callback", Toast.LENGTH_LONG).show();
         getPresenter().loadRepoListLessDangerous();
         if (!isRefresh) {
             contentView.setRefreshing(true);
