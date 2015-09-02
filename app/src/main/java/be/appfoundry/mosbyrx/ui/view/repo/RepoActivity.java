@@ -76,8 +76,18 @@ public class RepoActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.dangerMenuItem) {
+        if (id == R.id.dangerousMenuItem) {
             loadDataDangerously(false);
+            return true;
+        }
+
+        if (id == R.id.lessDangerousMenuItem) {
+            loadDataLessDangerously(false);
+            return true;
+        }
+
+        if (id == R.id.safeMenuItem) {
+            loadData(false);
             return true;
         }
 
@@ -108,14 +118,21 @@ public class RepoActivity
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
     void loadData(boolean isRefresh) {
-        getPresenter().loadRepoList(isRefresh);
+        getPresenter().loadRepoList();
         if (!isRefresh) {
             contentView.setRefreshing(true);
         }
     }
 
     void loadDataDangerously(boolean isRefresh) {
-        getPresenter().loadRepoListDangerously(isRefresh);
+        getPresenter().loadRepoListDangerous();
+        if (!isRefresh) {
+            contentView.setRefreshing(true);
+        }
+    }
+
+    void loadDataLessDangerously(boolean isRefresh) {
+        getPresenter().loadRepoListLessDangerous();
         if (!isRefresh) {
             contentView.setRefreshing(true);
         }

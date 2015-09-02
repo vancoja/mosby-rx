@@ -1,6 +1,9 @@
 <resources>
 
     <string name="app_name">Mosby Rx Example</string>
-    <string name="title_danger">Danger</string>
+
+    <string name="title_dangerous">Dangerous</string>
+    <string name="title_less_dangerous">Less Dangerous</string>
+    <string name="title_safe">Safe</string>
 
 </resources>

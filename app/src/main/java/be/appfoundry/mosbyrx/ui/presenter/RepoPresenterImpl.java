@@ -8,6 +8,7 @@ import be.appfoundry.mvp.mosby.BaseRxPresenter;
 import be.appfoundry.mosbyrx.data.entity.GitHubRepo;
 import be.appfoundry.mosbyrx.data.service.GitHubAPI;
 import be.appfoundry.mosbyrx.ui.view.repo.RepoView;
+import be.appfoundry.mvp.mosby.retrofit.SaferCallback;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -31,7 +32,7 @@ public class RepoPresenterImpl
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
     @Override
-    public void loadRepoList(boolean isRefresh) {
+    public void loadRepoList() {
         Timber.i("Subscribing");
         new RxIOSubscription<List<GitHubRepo>>().add(
                 gitHubAPI.getRepos(),
@@ -59,12 +60,12 @@ public class RepoPresenterImpl
     }
 
     @Override
-    public void loadRepoListDangerously(boolean isRefresh) {
+    public void loadRepoListDangerous() {
         Timber.i("Start Call");
         gitHubAPI.getRepos(new Callback<List<GitHubRepo>>() {
             @Override
             public void success(List<GitHubRepo> gitHubRepos, Response response) {
-                Timber.i("Success Callback, Result = %d items", gitHubRepos.size());
+                Timber.i("Dangerous Success Callback, Result = %d items", gitHubRepos.size());
                 getView().showRepos(gitHubRepos);
                 getView().hideLoadingIndicator();
                 Timber.i("Either we crashed with nullpointers because Activity is destroyed / " +
@@ -73,7 +74,27 @@ public class RepoPresenterImpl
 
             @Override
             public void failure(RetrofitError e) {
-                Timber.i("Error Callback - %s", e.getMessage());
+                Timber.i("Dangerous Error Callback - %s", e.getMessage());
+                getView().showMessage(e.getMessage());
+                getView().hideLoadingIndicator();
+            }
+        });
+    }
+
+    @Override
+    public void loadRepoListLessDangerous() {
+        Timber.i("Start Call");
+        gitHubAPI.getRepos(new SaferCallback<List<GitHubRepo>>() {
+            @Override
+            public void safeSuccess(List<GitHubRepo> gitHubRepos, Response response) {
+                Timber.i("Less Dangerous Success Callback, Result = %d items", gitHubRepos.size());
+                getView().showRepos(gitHubRepos);
+                getView().hideLoadingIndicator();
+            }
+
+            @Override
+            public void safeFailure(RetrofitError e) {
+                Timber.i("Less Dangerous Error Callback - %s", e.getMessage());
                 getView().showMessage(e.getMessage());
                 getView().hideLoadingIndicator();
             }

@@ -9,6 +9,7 @@ import be.appfoundry.mosbyrx.ui.view.repo.RepoView;
  */
 public interface RepoPresenter
         extends MvpPresenter<RepoView> {
-        void loadRepoList(boolean isRefresh);
-        void loadRepoListDangerously(boolean isRefresh);
+        void loadRepoList();
+        void loadRepoListDangerous();
+        void loadRepoListLessDangerous();
 }
