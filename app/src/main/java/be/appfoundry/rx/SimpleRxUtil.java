@@ -1,4 +1,4 @@
-package be.appfoundry.mosbyrx.core.rx;
+package be.appfoundry.rx;
 
 import java.util.concurrent.Callable;
 
@@ -10,7 +10,7 @@ import rx.schedulers.Schedulers;
 /**
  * Created by janvancoppenolle on 25/08/15.
  */
-public class RxUtil {
+public class SimpleRxUtil {
 
     // from http://beust.com/weblog/2015/06/01/easy-sqlite-on-android-with-rxjava/
     public static <T> Observable<T> makeObservable(final Callable<T> func) {

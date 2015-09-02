@@ -1,8 +1,8 @@
-package be.appfoundry.mosbyrx.core;
+package be.appfoundry.mosbyrx;
 
 import android.app.Application;
 
-import be.appfoundry.mosbyrx.BuildConfig;
+import be.appfoundry.mosbyrx.DaggerApplicationComponent;
 import timber.log.Timber;
 
 

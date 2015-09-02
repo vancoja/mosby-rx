@@ -1,7 +1,7 @@
 package be.appfoundry.mosbyrx.ui.view.repo;
 
-import be.appfoundry.mosbyrx.core.ActivityScoped;
-import be.appfoundry.mosbyrx.core.ApplicationComponent;
+import be.appfoundry.mosbyrx.ActivityScoped;
+import be.appfoundry.mosbyrx.ApplicationComponent;
 import be.appfoundry.mosbyrx.ui.adapter.RepoListAdapter;
 import be.appfoundry.mosbyrx.ui.presenter.RepoPresenterImpl;
 import dagger.Component;

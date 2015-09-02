@@ -1,4 +1,4 @@
-package be.appfoundry.mosbyrx.core;
+package be.appfoundry.mosbyrx;
 
 import android.app.Application;
 import android.content.Context;

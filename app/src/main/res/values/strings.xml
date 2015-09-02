@@ -1,5 +1,6 @@
 <resources>
 
     <string name="app_name">Mosby Rx Example</string>
+    <string name="title_danger">Danger</string>
 
 </resources>

@@ -1,4 +1,4 @@
-package be.appfoundry.mosbyrx.data.domain;
+package be.appfoundry.mosbyrx.data.entity;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by janvancoppenolle on 31/08/15.
  */
 public class GitHubRepo {
-    @SerializedName("full_name")
+    @SerializedName("name")
     String name;
 
     @SerializedName("html_url")

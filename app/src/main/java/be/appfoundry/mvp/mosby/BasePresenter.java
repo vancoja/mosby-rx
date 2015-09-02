@@ -1,4 +1,4 @@
-package be.appfoundry.mosbyrx.core.mvp;
+package be.appfoundry.mvp.mosby;
 
 import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 import com.hannesdorfmann.mosby.mvp.MvpView;

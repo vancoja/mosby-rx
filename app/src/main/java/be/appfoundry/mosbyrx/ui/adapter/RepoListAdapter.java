@@ -11,7 +11,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import be.appfoundry.mosbyrx.R;
-import be.appfoundry.mosbyrx.data.domain.GitHubRepo;
+import be.appfoundry.mosbyrx.data.entity.GitHubRepo;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 

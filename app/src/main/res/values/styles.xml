@@ -1,7 +1,7 @@
 <resources>
     <style name="RepoName">
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">24sp</item>
         <item name="android:textColor">@color/primary_dark</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif-thin</item>
     </style>
 </resources>

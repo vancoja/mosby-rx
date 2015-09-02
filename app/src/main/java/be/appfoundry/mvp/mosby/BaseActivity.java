@@ -1,4 +1,4 @@
-package be.appfoundry.mosbyrx.core.mvp;
+package be.appfoundry.mvp.mosby;
 
 import android.content.pm.ActivityInfo;
 import android.support.design.widget.Snackbar;

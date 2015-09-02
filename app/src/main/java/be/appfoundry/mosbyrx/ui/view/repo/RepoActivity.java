@@ -6,13 +6,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import java.util.List;
 
 import be.appfoundry.mosbyrx.R;
-import be.appfoundry.mosbyrx.core.AndroidApplication;
-import be.appfoundry.mosbyrx.core.mvp.BaseActivity;
-import be.appfoundry.mosbyrx.data.domain.GitHubRepo;
+import be.appfoundry.mosbyrx.AndroidApplication;
+import be.appfoundry.mvp.mosby.BaseActivity;
+import be.appfoundry.mosbyrx.data.entity.GitHubRepo;
 import be.appfoundry.mosbyrx.ui.adapter.RepoListAdapter;
 import be.appfoundry.mosbyrx.ui.presenter.RepoPresenter;
 import butterknife.InjectView;
@@ -62,11 +64,36 @@ public class RepoActivity
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
+    // User Interaction
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_repo, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.dangerMenuItem) {
+            loadDataDangerously(false);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
     // RepoView impl
 
     @Override
     public void showRepos(List<GitHubRepo> gitHubRepos) {
         adapter.setRepos(gitHubRepos);
+    }
+
+    @Override
+    public void hideLoadingIndicator() {
         contentView.setRefreshing(false);
     }
 
@@ -81,7 +108,14 @@ public class RepoActivity
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
     void loadData(boolean isRefresh) {
-        getPresenter().loadRepos(isRefresh);
+        getPresenter().loadRepoList(isRefresh);
+        if (!isRefresh) {
+            contentView.setRefreshing(true);
+        }
+    }
+
+    void loadDataDangerously(boolean isRefresh) {
+        getPresenter().loadRepoListDangerously(isRefresh);
         if (!isRefresh) {
             contentView.setRefreshing(true);
         }

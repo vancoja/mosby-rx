@@ -1,11 +1,12 @@
-package be.appfoundry.mosbyrx.core.mvp;
+package be.appfoundry.mvp.mosby;
 
 import java.util.concurrent.Callable;
 
-import be.appfoundry.mosbyrx.core.rx.RxUtil;
+import be.appfoundry.rx.SimpleRxUtil;
 import rx.Observable;
 import rx.Subscriber;
 import rx.subscriptions.CompositeSubscription;
+import timber.log.Timber;
 
 /**
  * Based on:
@@ -27,13 +28,14 @@ public abstract class BaseRxPresenter<V extends BaseMvpView> extends BasePresent
     public void detachView(boolean retainInstance) {
         super.detachView(retainInstance);
         if (!retainInstance) {
+            Timber.i("Detaching View & Unsubscribing");
             subscriptions.unsubscribe();
         }
     }
 
     protected class RxIOSubscription<T> extends RxSubscription<T> {
        public RxIOSubscription() {
-            super(new RxUtil.IOTransformer<T>());
+            super(new SimpleRxUtil.IOTransformer<T>());
         }
     }
 
@@ -51,7 +53,7 @@ public abstract class BaseRxPresenter<V extends BaseMvpView> extends BasePresent
         }
 
         public RxSubscription<T> add(Callable<T> func, Subscriber<T> subscriber) {
-            return add(RxUtil.makeObservable(func), subscriber);
+            return add(SimpleRxUtil.makeObservable(func), subscriber);
         }
     }
 }
