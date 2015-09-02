@@ -119,7 +119,7 @@ public class RepoActivity
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
     void loadData(boolean isRefresh) {
-        Toast.makeText(this, "RxPresenter", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "RxPresenter", Toast.LENGTH_SHORT).show();
         getPresenter().loadRepoList();
         if (!isRefresh) {
             contentView.setRefreshing(true);
@@ -127,7 +127,7 @@ public class RepoActivity
     }
 
     void loadDataDangerously(boolean isRefresh) {
-        Toast.makeText(this, "Unprotected Callback", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Unprotected Callback", Toast.LENGTH_SHORT).show();
         getPresenter().loadRepoListDangerous();
         if (!isRefresh) {
             contentView.setRefreshing(true);
@@ -135,7 +135,7 @@ public class RepoActivity
     }
 
     void loadDataLessDangerously(boolean isRefresh) {
-        Toast.makeText(this, "Safeguarded Callback", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Safeguarded Callback", Toast.LENGTH_SHORT).show();
         getPresenter().loadRepoListLessDangerous();
         if (!isRefresh) {
             contentView.setRefreshing(true);
