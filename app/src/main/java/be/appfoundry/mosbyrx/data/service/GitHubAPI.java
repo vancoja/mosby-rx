@@ -14,8 +14,11 @@ public interface GitHubAPI {
     String URI = "https://api.github.com";
 
     @GET("/users/google/repos")
-    Observable<List<GitHubRepo>> getRepos();
+    List<GitHubRepo> getReposOnMainThread();
 
     @GET("/users/google/repos")
     void getRepos(Callback<List<GitHubRepo>> result);
+
+    @GET("/users/google/repos")
+    Observable<List<GitHubRepo>> getRepos();
 }

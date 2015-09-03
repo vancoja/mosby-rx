@@ -65,9 +65,5 @@ public abstract class BaseRxPresenter<V extends BaseMvpView> extends BasePresent
             BaseRxPresenter.this.subscriptions.add(observable.subscribe(subscriber));
             return this;
         }
-
-        public RxSubscription<T> add(Callable<T> func, Subscriber<T> subscriber) {
-            return add(SimpleRxUtil.makeObservable(func), subscriber);
-        }
     }
 }

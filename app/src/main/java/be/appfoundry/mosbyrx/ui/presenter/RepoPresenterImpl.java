@@ -31,6 +31,15 @@ public class RepoPresenterImpl
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
+    public List<GitHubRepo> loadRepoListOnMainThread() {
+        Timber.i("Getting Result Synchronously");
+        /*
+            Android (in StrictMode) will keep us from being silly and will
+            throw an android.os.NetworkOnMainThreadException
+         */
+        return gitHubAPI.getReposOnMainThread();
+    }
+
     @Override
     public void loadRepoList() {
         Timber.i("Subscribing");
