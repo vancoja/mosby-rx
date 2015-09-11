@@ -35,13 +35,47 @@ public class RepoPresenterImpl
             Android (in StrictMode) will keep us from being silly and will
             throw an android.os.NetworkOnMainThreadException
          */
-        return gitHubAPI.getReposOnMainThread();
+        return gitHubAPI.getReposSync();
+    }
+
+    @Override
+    public void loadRepoListDangerous() {
+        gitHubAPI.getReposAsync(new Callback<List<GitHubRepo>>() {
+            @Override
+            public void success(List<GitHubRepo> gitHubRepos, Response response) {
+                getView().showRepos(gitHubRepos);
+                getView().hideLoadingIndicator();
+            }
+
+            @Override
+            public void failure(RetrofitError e) {
+                getView().showMessage(e.getMessage());
+                getView().hideLoadingIndicator();
+            }
+        });
+    }
+
+    @Override
+    public void loadRepoListLessDangerous() {
+        gitHubAPI.getReposAsync(new SafeCallback<List<GitHubRepo>>() {
+            @Override
+            public void safeSuccess(List<GitHubRepo> gitHubRepos, Response response) {
+                getView().showRepos(gitHubRepos);
+                getView().hideLoadingIndicator();
+            }
+
+            @Override
+            public void safeFailure(RetrofitError e) {
+                getView().showMessage(e.getMessage());
+                getView().hideLoadingIndicator();
+            }
+        });
     }
 
     @Override
     public void loadRepoList() {
         new RxIOSubscription<List<GitHubRepo>>().add(
-                gitHubAPI.getRepos(),
+                gitHubAPI.getReposRx(),
                 new Subscriber<List<GitHubRepo>>() {
                     @Override
                     public void onNext(List<GitHubRepo> gitHubRepos) {
@@ -60,39 +94,5 @@ public class RepoPresenterImpl
                     }
                 }
         );
-    }
-
-    @Override
-    public void loadRepoListDangerous() {
-        gitHubAPI.getRepos(new Callback<List<GitHubRepo>>() {
-            @Override
-            public void success(List<GitHubRepo> gitHubRepos, Response response) {
-                getView().showRepos(gitHubRepos);
-                getView().hideLoadingIndicator();
-            }
-
-            @Override
-            public void failure(RetrofitError e) {
-                getView().showMessage(e.getMessage());
-                getView().hideLoadingIndicator();
-            }
-        });
-    }
-
-    @Override
-    public void loadRepoListLessDangerous() {
-        gitHubAPI.getRepos(new SafeCallback<List<GitHubRepo>>() {
-            @Override
-            public void safeSuccess(List<GitHubRepo> gitHubRepos, Response response) {
-                getView().showRepos(gitHubRepos);
-                getView().hideLoadingIndicator();
-            }
-
-            @Override
-            public void safeFailure(RetrofitError e) {
-                getView().showMessage(e.getMessage());
-                getView().hideLoadingIndicator();
-            }
-        });
     }
 }
