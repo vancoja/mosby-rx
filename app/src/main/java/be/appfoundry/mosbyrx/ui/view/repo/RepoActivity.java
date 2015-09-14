@@ -18,21 +18,21 @@ import be.appfoundry.mvp.mosby.BaseActivity;
 import be.appfoundry.mosbyrx.data.entity.GitHubRepo;
 import be.appfoundry.mosbyrx.ui.adapter.RepoListAdapter;
 import be.appfoundry.mosbyrx.ui.presenter.RepoPresenter;
-import butterknife.InjectView;
+import butterknife.Bind;
 
 public class RepoActivity
         extends BaseActivity<RepoView, RepoPresenter>
         implements RepoView, SwipeRefreshLayout.OnRefreshListener {
 
-    @InjectView(R.id.toolbar) Toolbar toolbar;
-    @InjectView(R.id.recyclerView) RecyclerView recyclerView;
-    @InjectView(R.id.contentView) SwipeRefreshLayout contentView;
+    @Bind(R.id.toolbar) Toolbar toolbar;
+    @Bind(R.id.recyclerView) RecyclerView recyclerView;
+    @Bind(R.id.contentView) SwipeRefreshLayout contentView;
 
     RepoComponent component;
     RepoListAdapter adapter;
 
     @Override
-    protected void injectDependencies() {
+    protected void createComponent() {
         component = DaggerRepoComponent.builder()
                 .applicationComponent(((AndroidApplication) getApplication()).getComponent())
                 .build();

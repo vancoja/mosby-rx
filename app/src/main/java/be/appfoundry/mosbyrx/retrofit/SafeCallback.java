@@ -1,4 +1,4 @@
-package be.appfoundry.mvp.mosby.retrofit;
+package be.appfoundry.mosbyrx.retrofit;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
