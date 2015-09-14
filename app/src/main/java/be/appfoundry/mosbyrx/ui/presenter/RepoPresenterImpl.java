@@ -8,7 +8,7 @@ import be.appfoundry.mosbyrx.data.entity.GitHubRepo;
 import be.appfoundry.mosbyrx.data.service.GitHubAPI;
 import be.appfoundry.mosbyrx.ui.view.repo.RepoView;
 import be.appfoundry.mvp.mosby.BaseRxPresenter;
-import be.appfoundry.mvp.mosby.retrofit.SafeCallback;
+import be.appfoundry.mosbyrx.retrofit.SafeCallback;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -68,6 +68,27 @@ public class RepoPresenterImpl
             public void safeFailure(RetrofitError e) {
                 getView().showMessage(e.getMessage());
                 getView().hideLoadingIndicator();
+            }
+        });
+    }
+
+    @Override
+    public void loadRepoListSafer() {
+        gitHubAPI.getReposAsync(new Callback<List<GitHubRepo>>() {
+            @Override
+            public void success(List<GitHubRepo> gitHubRepos, Response response) {
+                if (isViewAttached()) {
+                    getView().showRepos(gitHubRepos);
+                    getView().hideLoadingIndicator();
+                }
+            }
+
+            @Override
+            public void failure(RetrofitError e) {
+                if (isViewAttached()) {
+                    getView().showMessage(e.getMessage());
+                    getView().hideLoadingIndicator();
+                }
             }
         });
     }

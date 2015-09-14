@@ -16,4 +16,5 @@ public interface RepoPresenter
         void loadRepoList();
         void loadRepoListDangerous();
         void loadRepoListLessDangerous();
+        void loadRepoListSafer();
 }

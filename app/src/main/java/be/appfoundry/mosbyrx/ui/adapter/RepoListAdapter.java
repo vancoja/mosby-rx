@@ -13,18 +13,18 @@ import javax.inject.Inject;
 import be.appfoundry.mosbyrx.R;
 import be.appfoundry.mosbyrx.data.entity.GitHubRepo;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
+import butterknife.Bind;
 
 public class RepoListAdapter extends RecyclerView.Adapter<RepoListAdapter.RepoViewHolder> {
 
     public static class RepoViewHolder extends RecyclerView.ViewHolder {
-        @InjectView(R.id.repo_name) TextView repoName;
-        @InjectView(R.id.repo_description) TextView repoDescription;
-        @InjectView(R.id.repo_url) TextView repoUrl;
+        @Bind(R.id.repo_name) TextView repoName;
+        @Bind(R.id.repo_description) TextView repoDescription;
+        @Bind(R.id.repo_url) TextView repoUrl;
 
         public RepoViewHolder(View view) {
             super(view);
-            ButterKnife.inject(this, view);
+            ButterKnife.bind(this, view);
         }
 
         public void bind(GitHubRepo repo) {

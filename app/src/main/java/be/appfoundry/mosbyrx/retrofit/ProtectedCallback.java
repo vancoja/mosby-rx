@@ -1,4 +1,4 @@
-package be.appfoundry.mvp.mosby.retrofit;
+package be.appfoundry.mosbyrx.retrofit;
 
 import retrofit.RetrofitError;
 import retrofit.client.Response;
